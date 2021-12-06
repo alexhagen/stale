@@ -18,10 +18,16 @@ class StaleFile:
 
     def open(self, typecode):
         now = datetime.datetime()
-        stale_time = os.getxattr('foo.txt', 'user.bar')
+        stale_time = os.getxattr(self.filename, 'user.staletime')
         if now > stale_time:
             return None
         else:
             with open(self.filename, typecode) as f:
                 contents = f.read()
             return contents 
+            
+    def __enter__(self, filename):
+        pass
+        
+    def __exit__(self, exc_type, exc_value, exc_tb):
+        pass
