@@ -19,7 +19,8 @@ class StaleFile:
     def open(self, typecode):
         now = datetime.datetime()
         stale_time = os.getxattr(self.filename, 'user.staletime')
-        if now > stale_time:
+        if (now > stale_time) or \
+                (not os.path.isfile(self.filename)):
             return None
         else:
             with open(self.filename, typecode) as f:
