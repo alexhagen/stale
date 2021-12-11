@@ -1,8 +1,10 @@
 import os
+import io
 import datetime
 
-class StaleFile:
-    def __init__(self, filename):
+class StaleFile(io.FileIO):
+    def __init__(self, filename, mode='r'):
+        super().__init__(filename, mode)
         self.filename = filename
 
     def save(self, contents, keep_len):
